@@ -1,0 +1,26 @@
+version: "3.7"
+services:
+  greenplum:
+    container_name: kaigreenplum 
+    hostname: greenplum
+    image: greenplum:latest
+    volumes:
+      - greenplum_primary:/home/gpadmin/primary
+      - greenplum_data:/gpdata
+      - /scripts:/mnt/share
+    networks:
+      - kai
+    command: bash -c "/opt/init.sh"
+
+networks:
+  kai:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 188.18.0.0/24    
+
+volumes: 
+  greenplum_data:
+    driver: local   
+  greenplum_primary:
+    driver: local
